@@ -1,0 +1,5 @@
+URL           = 
+INFLUX_URL    = 
+INFLUX_TOKEN  = 
+INFLUX_ORG    = 
+INFLUX_BUCKET = 

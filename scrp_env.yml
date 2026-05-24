@@ -1,0 +1,12 @@
+# scrp_env.yml
+name: scrp
+channels:
+  - conda-forge
+dependencies:
+  - python
+  - numpy
+  - playwright
+  - beautifulsoup4
+  - influxdb-client
+  - pip:
+      - playwright
