@@ -8,5 +8,6 @@ dependencies:
   - playwright
   - beautifulsoup4
   - influxdb-client
+  - pip
   - pip:
       - playwright
