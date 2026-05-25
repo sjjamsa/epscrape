@@ -6,7 +6,6 @@ from weather_parser import *
 from influx_writer import write_weather
 from secrets import *
 
-URL = "https://www.weatherlink.com/embeddablePage/show/e8eca7dc7d2c45659a512e3a76590763/summary"
 
 
 def parse_weather_string(s: str):
