@@ -1,6 +1,7 @@
 name: Weather Scraper
 
-#on:
+on:
+  push
 #  schedule:
 #    - cron: "*/5 * * * *"
 #  workflow_dispatch:
