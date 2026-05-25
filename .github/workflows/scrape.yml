@@ -39,6 +39,7 @@ jobs:
 
       - name: Run scraper
         env:
+          URL: ${{ secrets.URL }}
           INFLUX_URL: ${{ secrets.INFLUX_URL }}
           INFLUX_TOKEN: ${{ secrets.INFLUX_TOKEN }}
           INFLUX_ORG: ${{ secrets.INFLUX_ORG }}
