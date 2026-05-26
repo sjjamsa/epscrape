@@ -3,7 +3,7 @@ name: Weather Scraper
 on:
 #  push:
   schedule:
-    - cron: "24 * * * *"
+    - cron: "52 */3 * * *"
   workflow_dispatch:
 
 concurrency:
@@ -19,7 +19,7 @@ jobs:
       deployment: false
 
     runs-on: ubuntu-latest
-    timeout-minutes: 65
+    timeout-minutes: 605
 
     steps:
       - name: Checkout
@@ -51,7 +51,7 @@ jobs:
           INFLUX_ORG: ${{ secrets.INFLUX_ORG }}
           INFLUX_BUCKET: ${{ secrets.INFLUX_BUCKET }}
         run: |
-          end=$((SECONDS + 3600))
+          end=$((SECONDS + 36000))
 
           while [ $SECONDS -lt $end ]; do
             timeout 90s python scraper.py || echo "scrape failed or timed out"
