@@ -13,6 +13,11 @@ concurrency:
 
 jobs:
   scrape:
+
+    environment:
+      name: influx keys
+      deployment: false
+
     runs-on: ubuntu-latest
 
     steps:
