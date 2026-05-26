@@ -1,10 +1,10 @@
 name: Weather Scraper
 
 on:
-  push
+#  push:
 #  schedule:
-#    - cron: "*/5 * * * *"
-#  workflow_dispatch:
+#    - cron: "0 * * * *"
+  workflow_dispatch:
 
 concurrency:
   group: weather-scraper
@@ -19,6 +19,7 @@ jobs:
       deployment: false
 
     runs-on: ubuntu-latest
+    timeout-minutes: 65
 
     steps:
       - name: Checkout
@@ -42,7 +43,7 @@ jobs:
         run: |
           mkdir data
 
-      - name: Run scraper
+      - name: Run scraper loop
         env:
           URL: ${{ secrets.URL }}
           INFLUX_URL: ${{ secrets.INFLUX_URL }}
@@ -50,4 +51,16 @@ jobs:
           INFLUX_ORG: ${{ secrets.INFLUX_ORG }}
           INFLUX_BUCKET: ${{ secrets.INFLUX_BUCKET }}
         run: |
-          python get_json.py
+          end=$((SECONDS + 3600))
+
+          while [ $SECONDS -lt $end ]; do
+            timeout 90s python scraper.py || echo "scrape failed or timed out"
+
+            now=$(date +%s)
+            sleep_time=$((120 - now % 120))
+
+            # avoid sleeping full 120s exactly on boundary
+            [ $sleep_time -eq 120 ] && sleep_time=0
+
+            sleep $sleep_time
+          done
