@@ -94,7 +94,7 @@ with sync_playwright() as p:
     browser = p.chromium.launch(headless=True)
     page = browser.new_page()
 
-    page.goto(URL, wait_until="networkidle")
+    page.goto(URL, wait_until="networkidle", timeout=3000)
     page.wait_for_timeout(3000)
 
     blocks = {
