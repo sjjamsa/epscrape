@@ -3,7 +3,7 @@ name: Weather Scraper
 on:
 #  push:
   schedule:
-    - cron: "20 * * * *"
+    - cron: "24 * * * *"
   workflow_dispatch:
 
 concurrency:
