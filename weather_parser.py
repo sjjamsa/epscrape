@@ -20,11 +20,21 @@ def parse_conditions_timestamp(s: str):
 
     time_str, month_str, day, year = match.groups()
 
+    FORMATS = [
+        "%Y %b %d %H:%M",  # Jun 01
+        "%Y %B %d %H:%M",  # June 01
+    ]
+
+    def parse_ts(s):
+        for fmt in FORMATS:
+            try:
+                return datetime.strptime(s, fmt)
+            except ValueError:
+                pass
+            raise ValueError(f"Unknown date format: {s}")
+
     # Parse components
-    dt_naive = datetime.strptime(
-        f"{year} {month_str} {day} {time_str}",
-        "%Y %B %d %H:%M"
-    )
+    dt_naive = parse_ts( f"{year} {month_str} {day} {time_str}" )
 
     # Helsinki timezone (handles DST automatically)
     helsinki = ZoneInfo("Europe/Helsinki")
